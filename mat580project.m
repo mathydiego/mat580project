@@ -70,13 +70,17 @@ Y22 = -sin(theta2)*(0.5*(P2-A2)+0.5*(P2+A2)*cos(T2))+...
     cos(theta2)*sqrt(P2*A2)*sin(T2);
 Dist(T1,T2) = 0.5*( (X11-X22)^2+(Y11-Y22)^2 );
 GradDist(T1,T2) = [diff(Dist,T1); diff(Dist,T2)];
-epsilon = 0.01;
-minT1=3;minT2=5.5;
+epsilon = 0.1;
+minT1=3; minT2=5.5;
 %double(GradDist(minT1,minT2))
 while norm(GradDist(minT1,minT2)) >= epsilon
     d = -GradDist(minT1,minT2);
     %minimize f(minT+lambda*d)
-    syms L
-    f(L)= Dist(minT1+L*d(1), minT2+L*d(2));
-    fminsearch(f,0)
-
+    %syms L
+    %f(L)= Dist(minT1+L*d(1), minT2+L*d(2));
+    %Lmin = fminsearch(f,0);
+    Lmin=0.1;
+    minT1 = minT1 + Lmin*d(1); minT2 = minT2 + Lmin*d(2);
+end
+minT1 
+minT2
