@@ -77,7 +77,7 @@ GradDist(T1,T2) = [diff(Dist,T1); diff(Dist,T2)];
 % This is the part where we implement the steepest descent method.
 % Here we tweak our epsilon value. Some values that I will look closely are
 % epsilon = 1, 0.5, 0.1, etc.
-epsilon = 0.5;
+epsilon = 0.01;
 % Now, from our contour plot in part 2, it seems that the following
 % t-values are a good place to start our steepest descent.
 minT1 = 5; minT2 = 3;
@@ -108,13 +108,15 @@ while norm(double(GradDist(minT1,minT2))) >= epsilon
 end
 % Keep track of the computation time.
 TimeElapsed=toc;
+% Our actual minimum distance is 
+minDist = double(sqrt(2*Dist(minT1,minT2)));
 % We store useful information in the info vector
-info = [epsilon, minT1, minT2, iterations, TimeElapsed];
+info = [epsilon, minT1, minT2, iterations, TimeElapsed, minDist];
 % and state my conclusions as follows
 fprintf(['With epsilon = %1.3f, our t-values that minimize our dist ',...
     'function are t_1 = %2.2f and t_2 = %2.2f. There were %d ',...
-    'iterations needed, and the computation time was %3.2f seconds.\n'],...
-    info);
+    'iterations needed, and the computation time was %3.2f seconds.'...
+    ' Our minimum distance is %2.2f.\n'], info);
 % We are done with part 3. However, I want to add an additional graph which
 % includes the orbits of both planets and marks the locations of the two
 % planets where they are the closest (the points are those computed using 
